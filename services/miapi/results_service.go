@@ -14,8 +14,7 @@ var country *miapi.Country
 
 var site *miapi.Site
 
-func GetResultFromApi (userId int64) (*miapi.Result, *apierrors.ApiError){
-
+func GetResultFromApi(userId int64) (*miapi.Result, *apierrors.ApiError) {
 
 	wg.Add(1)
 
@@ -25,28 +24,28 @@ func GetResultFromApi (userId int64) (*miapi.Result, *apierrors.ApiError){
 
 	if user != nil {
 		wg.Add(2)
-		go GetCountry(user.CountryID)
 		go GetSite(user.SiteID)
+		go GetCountry(user.CountryID)
 	}
 
 	wg.Wait()
 
 	result := &miapi.Result{
-		User: user,
-		Site: site,
+		User:    user,
+		Site:    site,
 		Country: country,
 	}
 
-	return result , nil
+	return result, nil
 
 }
 
-func GetUser(userId int64 ) (*apierrors.ApiError){
+func GetUser(userId int64) *apierrors.ApiError {
 
 	defer wg.Done()
 	var err *apierrors.ApiError
 
-	user , err = GetUserFromApi(userId)
+	user, err = GetUserFromApi(userId)
 	if err != nil {
 
 		return err
@@ -55,13 +54,13 @@ func GetUser(userId int64 ) (*apierrors.ApiError){
 	return nil
 }
 
-func GetCountry(countryID string) (*apierrors.ApiError){
+func GetCountry(countryID string) *apierrors.ApiError {
 
 	defer wg.Done()
 
 	var err *apierrors.ApiError
 
-	country , err = GetCountryFromApi(countryID)
+	country, err = GetCountryFromApi(countryID)
 	if err != nil {
 
 		return err
@@ -70,13 +69,13 @@ func GetCountry(countryID string) (*apierrors.ApiError){
 	return nil
 }
 
-func GetSite(siteID string) (*apierrors.ApiError){
+func GetSite(siteID string) *apierrors.ApiError {
 
 	defer wg.Done()
 
 	var err *apierrors.ApiError
 
-	site , err = GetSiteFromApi(siteID)
+	site, err = GetSiteFromApi(siteID)
 	if err != nil {
 
 		return err
@@ -84,6 +83,3 @@ func GetSite(siteID string) (*apierrors.ApiError){
 
 	return nil
 }
-
-
-
