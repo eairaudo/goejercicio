@@ -43,7 +43,7 @@ type Site struct {
 
 }
 
-const urlSite  = "https://api.mercadolibre.com/sites/"
+const urlSite  = "http://localhost:8081/site/"
 
 func (site *Site) Get() *apierrors.ApiError  {
 

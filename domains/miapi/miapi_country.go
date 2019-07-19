@@ -22,13 +22,9 @@ type Country struct {
 					Longitude	float64 `json:"longitude"`
 				}`json:"location"`
 	} `json:"geo_information"`
-	States [] struct {
-		ID 		string `json:"id"`
-		Name 	string `json:"name"`
-	}`json:"states"`
 }
 
-const urlCountry  = "https://api.mercadolibre.com/countries/"
+const urlCountry  = "http://localhost:8081/countries/"
 
 func (country *Country) Get() *apierrors.ApiError  {
 
